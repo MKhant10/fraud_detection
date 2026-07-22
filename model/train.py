@@ -59,8 +59,8 @@ def build_pipeline(model) -> Pipeline:
     preprocess = ColumnTransformer(
         transformers=[
             ("num", StandardScaler(), NUMERIC),
-            ("cat", OneHotEncoder(handle_unknown="ignore"), CATEGORICAL),
-        ]
+            ("cat", OneHotEncoder(handle_unknown="ignore", drop='first'), CATEGORICAL),
+        ], remainder="drop"
     )
     return Pipeline([("preprocess", preprocess), ("classifier", model)])
 
