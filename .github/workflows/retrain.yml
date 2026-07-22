@@ -1,0 +1,30 @@
+name: Scheduled Retraining
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"   # 00:00 UTC on the 1st of every month (the time trigger)
+  workflow_dispatch: {}    # also allow manual runs, for demoing on demand
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate stand-in data (synthetic PaySim feed)
+        run: python automation/make_sample_data.py --out data/raw/paysim.csv
+
+      - name: Prepare the 12 monthly batches (with injected drift)
+        run: python data/prepare_monthly_batches.py --subsample 0
+
+      - name: Run drift check + conditional retraining
+        run: python automation/retrain.py
