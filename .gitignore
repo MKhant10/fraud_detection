@@ -1,0 +1,40 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- Secrets (API key lives here, never commit it) ---
+.env
+
+# --- Raw dataset (large ~470MB — download it yourself, see README) ---
+data/raw/*
+!data/raw/.gitkeep
+
+# --- Generated monthly batches (recreated by the data-prep script) ---
+data/batches/
+
+# --- mlflow local tracking store + artifacts ---
+mlruns/
+mlartifacts/
+mlflow.db
+
+# --- served-model prediction logs (regenerated at runtime) ---
+logs/
+
+# --- OS / editor cruft ---
+.DS_Store
+.idea/
+.vscode/
+
+# --- Claude Code machine-local settings ---
+.claude/settings.local.json
+
+# --- Private working notes (not for the public repo) ---
+SPEC.md
+notes.md
