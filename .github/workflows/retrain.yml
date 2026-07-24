@@ -2,7 +2,7 @@ name: Scheduled Retraining
 
 on:
   schedule:
-    - cron: "0 0 1 * *"   # 00:00 UTC on the 1st of every month (the time trigger)
+    - cron: "0 0 3 * *"   # 00:00 UTC on the 1st of every month (the time trigger)
   workflow_dispatch: {}    # also allow manual runs, for demoing on demand
 
 jobs:
